@@ -1,2 +1,0 @@
-# roberto.github
-appdelecciones
