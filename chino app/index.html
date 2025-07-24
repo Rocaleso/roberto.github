@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elecciones La Libertad Avanza - Buenos Aires</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Estilos personalizados para el tema morado */
+        .bg-purple-gradient { background: linear-gradient(135deg, #8B5CF6, #A855F7); }
+        .bg-purple-light-gradient { background: linear-gradient(135deg, #F3E8FF, #E9D5FF); }
+        .chat-widget { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
+        .notification-badge { animation: pulse 2s infinite; }
+        .shake { animation: shake 0.5s ease-in-out; }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .phone-mockup {
+            background: #000;
+            border-radius: 2rem;
+            padding: 0.5rem;
+            width: 320px;
+            height: 600px;
+        }
+        
+        .phone-screen {
+            background: #fff;
+            border-radius: 1.5rem;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+        }
+        
+        .modal.active { display: flex; }
+        .section-button:hover { transform: scale(1.05); }
+        .transition-all { transition: all 0.3s ease; }
+    </style>
+</head>
+<body class="bg-purple-light-gradient min-h-screen">
+
+<!-- Header -->
+<header class="bg-purple-gradient shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 py-4">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/La_Libertad_Avanza_full_logo.svg/800px-La_Libertad_Avanza_full_logo.svg.png" 
+                     alt="La Libertad Avanza" class="h-12">
+                <div>
+                    <h1 class="text-xl font-bold text-white">Elecciones La Libertad Avanza</h1>
+                    <p class="text-sm text-purple-100">Provincia de Buenos Aires</p>
+                </div>
+            </div>
+            <nav class="flex space-x-4">
+                <button onclick="showRegistro()" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md font-semibold transition-all">
+                    Registrarse
+                </button>
+                <button onclick="showAdmin()" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md font-semibold transition-all">
+                    Admin
+                </button>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<!-- Contenido Principal -->
+<div id="main-content" class="flex max-w-7xl mx-auto p-8">
+    <!-- Phone Mockup -->
+    <div class="flex-1 hidden lg:flex items-center justify-center">
+        <div class="relative">
+            <div class="phone-mockup">
+                <div class="phone-screen relative">
+                    <div class="h-6 bg-purple-600 flex items-center justify-center">
+                        <div class="text-white text-xs font-medium">Elecciones La Libertad Avanza</div>
+                    </div>
+                    <div class="p-4 space-y-4 h-full overflow-y-auto">
+                        <!-- Post 1 -->
+                        <div class="border border-purple-200 rounded-lg overflow-hidden">
+                            <div class="p-3 flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
+                                    <span class="text-white text-xs font-bold">LLA</span>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-sm">La Libertad Avanza BA</p>
+                                    <p class="text-xs text-gray-500">8 Secciones Electorales</p>
+                                </div>
+                            </div>
+                            <div class="h-32 bg-purple-gradient flex items-center justify-center">
+                                <div class="text-center text-white">
+                                    <h3 class="font-bold text-lg">¡VIVA LA LIBERTAD!</h3>
+                                    <p class="text-sm">135 Municipios</p>
+                                </div>
+                            </div>
+                            <div class="p-3">
+                                <p class="text-sm">Registrate en tu sección electoral y participa en las elecciones</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Post 2 -->
+                        <div class="border border-purple-200 rounded-lg overflow-hidden">
+                            <div class="p-3 flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
+                                    <span class="text-white text-xs font-bold">📸</span>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-sm">Subí tus fotos</p>
+                                    <p class="text-xs text-gray-500">Campaña electoral</p>
+                                </div>
+                            </div>
+                            <div class="h-20 bg-gradient-to-r from-purple-600 to-blue-500 flex items-center justify-center">
+                                <div class="text-center text-white">
+                                    <h4 class="font-bold">Compartí tu EXPERIENCIA</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Floating elements -->
+            <div class="absolute -top-4 -left-4 w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold shadow-lg">♥</div>
+            <div class="absolute -bottom-4 -right-4 w-10 h-10 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold shadow-lg">✓</div>
+        </div>
+    </div>
+
+    <!-- Electoral Sections -->
+    <div class="flex-1 max-w-2xl mx-auto lg:mx-0 lg:ml-8">
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-purple-800 mb-6 text-center">Secciones Electorales de Buenos Aires</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6" id="sections-grid">
+                <!-- Se genera dinámicamente -->
+            </div>
+
+            <!-- Selected section details -->
+            <div id="section-details" class="hidden bg-white border border-purple-200 rounded-lg p-6 mb-6">
+                <h3 id="section-title" class="font-bold text-lg text-purple-800 mb-4"></h3>
+                <div id="municipalities-grid" class="grid grid-cols-2 md:grid-cols-3 gap-2"></div>
+                <div id="municipality-details" class="hidden mt-6 bg-gray-50 border border-gray-200 rounded-lg p-4"></div>
+            </div>
+        </div>
+
+        <!-- Quick Access Buttons -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            <button onclick="showRegistro()" class="bg-purple-600 hover:bg-purple-700 text-white p-6 rounded-lg text-center transition-all">
+                <div class="text-2xl mb-2">📝</div>
+                <h3 class="font-bold text-lg mb-2">Registrarse</h3>
+                <p class="text-sm opacity-90">Completa tu registro electoral</p>
+            </button>
+            
+            <button onclick="showAdmin()" class="bg-gray-600 hover:bg-gray-700 text-white p-6 rounded-lg text-center transition-all">
+                <div class="text-2xl mb-2">👥</div>
+                <h3 class="font-bold text-lg mb-2">Panel Admin</h3>
+                <p class="text-sm opacity-90">Ver registros y fotos</p>
+            </button>
+        </div>
+
+        <!-- Quick Login -->
+        <div class="bg-white border border-purple-200 rounded-lg p-6 shadow-sm">
+            <h3 class="text-xl font-bold text-purple-800 mb-4 text-center">Acceso Rápido</h3>
+            <form class="space-y-3">
+                <input type="text" placeholder="DNI o email" 
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-purple-500">
+                <input type="password" placeholder="Contraseña"
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-purple-500">
+                <button type="button" onclick="quickLogin()"
+                        class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-md transition-all">
+                    Ingresar
+                </button>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-8 text-center">
+            <p class="text-xs text-gray-500 mb-2">© 2025 La Libertad Avanza - Provincia de Buenos Aires</p>
+            <p class="text-xs text-gray-400">Hecho por Roberto Lencina - Derecho de Autor</p>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Registro -->
+<div id="registro-modal" class="modal items-center justify-center">
+    <div class="bg-white rounded-lg max-w-2xl w-full max-h-90vh overflow-y-auto m-4">
+        <div class="p-6 border-b border-purple-200">
+            <div class="flex justify-between items-center">
+                <h2 class="text-2xl font-bold text-purple-800">Registro de Usuario</h2>
+                <button onclick="closeModal('registro-modal')" class="text-gray-400 hover:text-gray-600">✕</button>
+            </div>
+        </div>
+        
+        <div class="p-6">
+            <form id="registro-form" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input type="text" name="nombre" placeholder="Nombre *" required 
+                           class="px-3 py-2 border border-purple-300 rounded-md focus:outline-none focus:border-purple-500">
+                    <input type="text" name="apellido" placeholder="Apellido *" required
+                           class="px-3 py-2 border border-purple-300 rounded-md focus:outline-none focus:border-purple-500">
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input type="text" name="dni" placeholder="DNI *" required
+                           class="px-3 py-2 border border-purple-300 rounded-md focus:outline-none focus:border-purple-500">
+                    <input type="tel" name="celular" placeholder="Celular *" required
+                           class="px-3 py-2 border border-purple-300 rounded-md focus:outline-none focus:border-purple-500">
+                </div>
+                
+                <input type="email" name="email" placeholder="Email *" required
+                       class="w-full px-3 py-2 border border-purple-300 rounded-md focus:outline-none focus:border-purple-500">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <select name="seccionElectoral" required
+                            class="px-3 py-2 border border-purple-300 rounded-md focus:outline-none focus:border-purple-500">
+                        <option value="">Selecciona sección</option>
+                        <option value="1">1ª Sección Electoral</option>
+                        <option value="2">2ª Sección Electoral</option>
+                        <option value="3">3ª Sección Electoral</option>
+                        <option value="4">4ª Sección Electoral</option>
+                        <option value="5">5ª Sección Electoral</option>
+                        <option value="6">6ª Sección Electoral</option>
+                        <option value="7">7ª Sección Electoral</option>
+                        <option value="8">8ª Sección Electoral</option>
+                    </select>
+                    
+                    <select name="municipio" required id="municipio-select"
+                            class="px-3 py-2 border border-purple-300 rounded-md focus:outline-none focus:border-purple-500">
+                        <option value="">Selecciona municipio</option>
+                    </select>
+                </div>
+                
+                <div class="relative">
+                    <div class="flex space-x-2">
+                        <input type="text" name="escuela" placeholder="Escuela/Centro de Votación *" required
+                               class="flex-1 px-3 py-2 border border-purple-300 rounded-md focus:outline-none focus:border-purple-500">
+                        <button type="button" onclick="showEscuelasSugeridas()" 
+                                class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-md text-sm">
+                            🏫 Sugerir
+                        </button>
+                        <button type="button" onclick="solicitarUbicacion()"
+                                class="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-md text-sm">
+                            📍 GPS
+                        </button>
+                    </div>
+                    <div id="escuelas-sugeridas" class="hidden absolute z-10 w-full mt-1 bg-white border border-purple-300 rounded-md shadow-lg max-h-48 overflow-y-auto"></div>
+                </div>
+                
+                <input type="text" name="direccion" placeholder="Dirección *" required
+                       class="w-full px-3 py-2 border border-purple-300 rounded-md focus:outline-none focus:border-purple-500">
+                
+                <div class="flex space-x-4">
+                    <input type="file" name="foto" accept="image/*"
+                           class="flex-1 px-3 py-2 border border-purple-300 rounded-md focus:outline-none focus:border-purple-500">
+                    <button type="button" onclick="tomarFoto()"
+                            class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md font-semibold">
+                        📸 Tomar Foto
+                    </button>
+                </div>
+                
+                <button type="submit" 
+                        class="w-full bg-purple-gradient text-white font-bold py-3 px-4 rounded-md transition-all transform hover:scale-105">
+                    Registrarse
+                </button>
+            </form>
+            
+            <div class="mt-6 text-center">
+                <button onclick="showEmergencyModal()"
+                        class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-md font-semibold">
+                    🚨 Mensaje de Emergencia
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Admin -->
+<div id="admin-modal" class="modal items-center justify-center">
+    <div class="bg-white rounded-lg max-w-6xl w-full max-h-90vh overflow-y-auto m-4">
+        <div class="p-6 border-b border-purple-200">
+            <div class="flex justify-between items-center">
+                <h2 class="text-2xl font-bold text-purple-800">Panel Administrativo</h2>
+                <button onclick="closeModal('admin-modal')" class="text-gray-400 hover:text-gray-600">✕</button>
+            </div>
+        </div>
+        
+        <!-- Login de Admin -->
+        <div id="admin-login" class="p-6">
+            <div class="max-w-md mx-auto">
+                <h3 class="text-lg font-semibold mb-4 text-center">Acceso Restringido</h3>
+                <input type="password" id="admin-password" placeholder="Contraseña de Administrador (David2025)"
+                       class="w-full px-3 py-2 border border-purple-300 rounded-md focus:outline-none focus:border-purple-500 mb-4">
+                <button onclick="loginAdmin()" 
+                        class="w-full bg-purple-gradient text-white font-semibold py-2 px-4 rounded-md">
+                    Ingresar
+                </button>
+            </div>
+        </div>
+        
+        <!-- Panel de Admin -->
+        <div id="admin-panel" class="hidden p-6">
+            <!-- Estadísticas -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-lg shadow border border-purple-300">
+                    <h3 class="text-lg font-semibold text-purple-800">Total Registros</h3>
+                    <p id="total-registros" class="text-3xl font-bold text-purple-600">0</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow border border-purple-300">
+                    <h3 class="text-lg font-semibold text-purple-800">Con Foto</h3>
+                    <p id="con-foto" class="text-3xl font-bold text-green-600">0</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow border border-purple-300">
+                    <h3 class="text-lg font-semibold text-purple-800">Hoy</h3>
+                    <p id="registros-hoy" class="text-3xl font-bold text-blue-600">0</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow border border-purple-300">
+                    <h3 class="text-lg font-semibold text-purple-800">Emergencias</h3>
+                    <p id="emergencias-count" class="text-3xl font-bold text-red-600">0</p>
+                </div>
+            </div>
+            
+            <!-- Controles -->
+            <div class="bg-white p-6 rounded-lg shadow border border-purple-300 mb-8">
+                <h3 class="text-lg font-semibold text-purple-800 mb-4">Búsqueda Avanzada</h3>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <input type="text" id="search-general" placeholder="Buscar..." 
+                           class="px-3 py-2 border border-purple-300 rounded-md">
+                    <select id="search-municipio" class="px-3 py-2 border border-purple-300 rounded-md">
+                        <option value="">Todos los municipios</option>
+                    </select>
+                    <select id="search-seccion" class="px-3 py-2 border border-purple-300 rounded-md">
+                        <option value="">Todas las secciones</option>
+                        <option value="1">1ª Sección</option>
+                        <option value="2">2ª Sección</option>
+                        <option value="3">3ª Sección</option>
+                        <option value="4">4ª Sección</option>
+                        <option value="5">5ª Sección</option>
+                        <option value="6">6ª Sección</option>
+                        <option value="7">7ª Sección</option>
+                        <option value="8">8ª Sección</option>
+                    </select>
+                    <div class="flex space-x-2">
+                        <button onclick="buscarRegistros()" class="flex-1 bg-purple-600 text-white px-4 py-2 rounded-md">🔍 Buscar</button>
+                        <button onclick="exportarCSV()" class="bg-green-600 text-white px-4 py-2 rounded-md">📊 CSV</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mensajes de Emergencia -->
+            <div class="bg-white p-6 rounded-lg shadow border border-red-300 mb-8">
+                <h3 class="text-lg font-semibold text-red-800 mb-4">Mensajes de Emergencia</h3>
+                <div id="emergencias-list"></div>
+            </div>
+            
+            <!-- Lista de Registros -->
+            <div class="bg-white rounded-lg shadow border border-purple-300">
+                <div class="p-6 border-b border-purple-200">
+                    <h3 class="text-xl font-semibold text-purple-800">Registros de Usuarios</h3>
+                </div>
+                <div id="registros-list" class="p-6"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Emergencia -->
+<div id="emergency-modal" class="modal items-center justify-center">
+    <div class="bg-white rounded-lg max-w-md w-full m-4">
+        <div class="p-6 border-b border-red-200">
+            <div class="flex justify-between items-center">
+                <h3 class="text-lg font-bold text-red-800">🚨 Mensaje de Emergencia</h3>
+                <button onclick="closeModal('emergency-modal')" class="text-gray-400 hover:text-gray-600">✕</button>
+            </div>
+        </div>
+        <div class="p-6">
+            <textarea id="emergency-message" rows="4" placeholder="Describe tu situación de emergencia..."
+                      class="w-full px-3 py-2 border border-red-300 rounded-md focus:outline-none focus:border-red-500 mb-4"></textarea>
+            <div class="flex space-x-4">
+                <button onclick="enviarEmergencia()" class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md font-semibold">
+                    🚨 Enviar Emergencia
+                </button>
+                <button onclick="closeModal('emergency-modal')" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-md">
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chat Widget -->
+<div class="chat-widget">
+    <div id="chat-button" class="relative bg-purple-gradient rounded-full p-4 shadow-lg cursor-pointer transform transition-all hover:scale-110"
+         onclick="toggleChat()">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+        </svg>
+        <span id="chat-badge" class="hidden absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center notification-badge"></span>
+        <span class="absolute -top-1 -left-1 h-3 w-3 bg-green-400 rounded-full"></span>
+    </div>
+    
+    <div id="chat-window" class="hidden absolute bottom-16 right-0 bg-white rounded-lg shadow-2xl border border-purple-200 w-80 h-96 flex flex-col">
+        <div class="bg-purple-gradient text-white p-4 rounded-t-lg">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h3 class="font-semibold">Chat en Vivo</h3>
+                    <p class="text-xs opacity-75">🟢 Conectado</p>
+                </div>
+                <button onclick="toggleChat()" class="text-white hover:text-gray-200">✕</button>
+            </div>
+        </div>
+        
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-3">
+            <div class="text-center text-gray-500 text-sm">
+                <p>👋 ¡Hola! ¿En qué podemos ayudarte?</p>
+            </div>
+        </div>
+        
+        <div class="p-4 border-t border-gray-200">
+            <div class="flex space-x-2">
+                <textarea id="chat-input" placeholder="Escribe tu mensaje..." rows="2"
+                          class="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:border-purple-500 resize-none"></textarea>
+                <button onclick="enviarMensajeChat()" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded-md">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// ================================
+// DATOS Y CONFIGURACIÓN
+// ================================
+
+// Secciones electorales
+const SECCIONES_ELECTORALES = {
+    1: {
+        name: "1ª Sección Electoral",
+        municipalities: ["Campana", "Escobar", "General Las Heras", "General Rodríguez", "General San Martín", "Hurlingham", "Ituzaingó", "José C. Paz", "Luján", "Malvinas Argentinas", "Marcos Paz", "Mercedes", "Merlo", "Moreno", "Morón", "Navarro", "Pilar", "San Fernando", "San Isidro", "San Miguel", "Suipacha", "Tigre", "Tres de Febrero", "Vicente López"]
+    },
+    2: {
+        name: "2ª Sección Electoral",
+        municipalities: ["Arrecifes", "Baradero", "Capitán Sarmiento", "Carmen de Areco", "Colón", "Exaltación de la Cruz", "Pergamino", "Ramallo", "Rojas", "Salto", "San Andrés de Giles", "San Antonio de Areco", "San Nicolás", "San Pedro", "Zárate"]
+    },
+    3: {
+        name: "3ª Sección Electoral", 
+        municipalities: ["Almirante Brown", "Avellaneda", "Berazategui", "Berisso", "Brandsen", "Cañuelas", "Ensenada", "Esteban Echeverría", "Ezeiza", "Florencio Varela", "La Matanza", "Lanús", "Lobos", "Lomas de Zamora", "Magdalena", "Presidente Perón", "Punta Indio", "Quilmes", "San Vicente"]
+    },
+    4: {
+        name: "4ª Sección Electoral",
+        municipalities: ["Alberti", "Bragado", "Carlos Casares", "Carlos Tejedor", "Chacabuco", "Chivilcoy", "Florentino Ameghino", "General Arenales", "General Pinto", "General Viamonte", "General Villegas", "Hipólito Yrigoyen", "Junín", "Leandro N. Alem", "Lincoln", "Nueve de Julio", "Pehuajó", "Rivadavia", "Trenque Lauquen"]
+    },
+    5: {
+        name: "5ª Sección Electoral",
+        municipalities: ["Ayacucho", "Balcarce", "Castelli", "Chascomús", "Dolores", "General Alvarado", "General Belgrano", "General Guido", "General Lavalle", "General Madariaga", "General Paz", "General Pueyrredón", "La Costa", "Las Flores", "Lezama", "Lobería", "Maipú", "Mar Chiquita", "Monte", "Necochea", "Pila", "Pinamar", "Rauch", "San Cayetano", "Tandil", "Tordillo", "Villa Gesell"]
+    },
+    6: {
+        name: "6ª Sección Electoral",
+        municipalities: ["Adolfo Alsina", "Adolfo Gonzales Chaves", "Bahía Blanca", "Benito Juárez", "Coronel Dorrego", "Coronel Pringles", "Coronel Rosales", "Coronel Suárez", "Daireaux", "Guaminí", "General Lamadrid", "Laprida", "Monte Hermoso", "Patagones", "Pellegrini", "Puan", "Saavedra", "Salliqueló", "Tornquist", "Tres Arroyos", "Tres Lomas", "Villarino"]
+    },
+    7: {
+        name: "7ª Sección Electoral", 
+        municipalities: ["Azul", "Bolívar", "General Alvear", "Olavarría", "Roque Pérez", "Saladillo", "Tapalqué", "Veinticinco de Mayo"]
+    },
+    8: {
+        name: "8ª Sección Electoral",
+        municipalities: ["La Plata", "Isla Martín García"]
+    }
+};
+
+// Base de datos de escuelas
+const ESCUELAS_BD = [
+    { id: 1, nombre: "Escuela Primaria N° 1 República Argentina", direccion: "Calle 13 y 60", municipio: "La Plata", seccionElectoral: "8", coordenadas: { lat: -34.9205, lng: -57.9536 } },
+    { id: 2, nombre: "Escuela Secundaria N° 5", direccion: "Calle 7 entre 57 y 58", municipio: "La Plata", seccionElectoral: "8", coordenadas: { lat: -34.9154, lng: -57.9560 } },
+    { id: 3, nombre: "Escuela N° 23 Nicolás Avellaneda", direccion: "Av. Mitre 750", municipio: "Avellaneda", seccionElectoral: "3", coordenadas: { lat: -34.6638, lng: -58.3665 } },
+    { id: 4, nombre: "Escuela Técnica N° 1", direccion: "Colón 167", municipio: "Avellaneda", seccionElectoral: "3", coordenadas: { lat: -34.6612, lng: -58.3703 } },
+    { id: 5, nombre: "Colegio San Patricio", direccion: "Av. Libertador 1234", municipio: "San Isidro", seccionElectoral: "1", coordenadas: { lat: -34.4707, lng: -58.5377 } },
+    { id: 6, nombre: "Escuela N° 15", direccion: "Belgrano 890", municipio: "San Isidro", seccionElectoral: "1", coordenadas: { lat: -34.4689, lng: -58.5290 } },
+    { id: 7, nombre: "Escuela N° 8 Mariano Moreno", direccion: "Machado 1456", municipio: "Morón", seccionElectoral: "1", coordenadas: { lat: -34.6534, lng: -58.6198 } },
+    { id: 8, nombre: "Instituto San José", direccion: "Brown 2345", municipio: "Morón", seccionElectoral: "1", coordenadas: { lat: -34.6503, lng: -58.6156 } }
+];
+
+// Variables globales
+let selectedSection = null;
+let selectedMunicipio = null;
+let ubicacionActual = null;
+let usuarioActual = null;
+let isAdmin = false;
+
+// ================================
+// INICIALIZACIÓN
+// ================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    inicializarApp();
+    cargarMunicipios();
+    renderSections();
+    inicializarChat();
+    solicitarPermisosNotificacion();
+    
+    // Auto-actualizar chat cada 3 segundos
+    setInterval(actualizarChat, 3000);
+    
+    // Auto-actualizar estadísticas si está en admin
+    setInterval(actualizarEstadisticas, 5000);
+});
+
+function inicializarApp() {
+    // Inicializar datos si no existen
+    if (!localStorage.getItem('registros')) {
+        localStorage.setItem('registros', JSON.stringify([]));
+    }
+    if (!localStorage.getItem('chatMensajes')) {
+        localStorage.setItem('chatMensajes', JSON.stringify([]));
+    }
+    if (!localStorage.getItem('emergencias')) {
+        localStorage.setItem('emergencias', JSON.stringify([]));
+    }
+    
+    usuarioActual = 'user_' + Date.now();
+}
+
+function solicitarPermisosNotificacion() {
+    if ('Notification' in window && Notification.permission === 'default') {
+        Notification.requestPermission();
+    }
+}
+
+// ================================
+// SECCIONES ELECTORALES
+// ================================
+
+function renderSections() {
+    const grid = document.getElementById('sections-grid');
+    grid.innerHTML = '';
+    
+    Object.entries(SECCIONES_ELECTORALES).forEach(([num, section]) => {
+        const button = document.createElement('button');
+        button.className = `section-button p-4 rounded-lg border-2 transition-all ${
+            selectedSection === parseInt(num) 
+                ? 'border-purple-500 bg-purple-50 text-purple-800' 
+                : 'border-purple-200 bg-white hover:border-purple-300'
+        }`;
+        button.onclick = () => selectSection(parseInt(num));
+        button.innerHTML = `
+            <div class="font-bold text-lg">${num}ª</div>
+            <div class="text-sm text-gray-600">Sección</div>
+            <div class="text-xs text-purple-600 mt-1">${section.municipalities.length} municipios</div>
+        `;
+        grid.appendChild(button);
+    });
+}
+
+function selectSection(sectionNum) {
+    selectedSection = selectedSection === sectionNum ? null : sectionNum;
+    selectedMunicipio = null;
+    renderSections();
+    showSectionDetails();
+}
+
+function showSectionDetails() {
+    const detailsDiv = document.getElementById('section-details');
+    const titleDiv = document.getElementById('section-title');
+    const gridDiv = document.getElementById('municipalities-grid');
+    
+    if (!selectedSection) {
+        detailsDiv.classList.add('hidden');
+        return;
+    }
+    
+    const section = SECCIONES_ELECTORALES[selectedSection];
+    titleDiv.textContent = section.name;
+    
+    gridDiv.innerHTML = '';
+    section.municipalities.forEach(municipality => {
+        const registros = getRegistrosByMunicipio(municipality);
+        const button = document.createElement('button');
+        button.className = `text-sm p-2 rounded border text-center transition-all hover:bg-purple-100 ${
+            selectedMunicipio === municipality 
+                ? 'bg-purple-200 border-purple-300' 
+                : 'bg-purple-50 border-purple-100'
+        }`;
+        button.onclick = () => selectMunicipio(municipality);
+        button.innerHTML = `
+            <div>${municipality}</div>
+            ${registros.length > 0 ? `<div class="text-xs text-purple-600 mt-1">${registros.length} inscripto${registros.length !== 1 ? 's' : ''}</div>` : ''}
+        `;
+        gridDiv.appendChild(button);
+    });
+    
+    detailsDiv.classList.remove('hidden');
+    showMunicipioDetails();
+}
+
+function selectMunicipio(municipio) {
+    selectedMunicipio = selectedMunicipio === municipio ? null : municipio;
+    showSectionDetails();
+}
+
+function showMunicipioDetails() {
+    const detailsDiv = document.getElementById('municipality-details');
+    
+    if (!selectedMunicipio) {
+        detailsDiv.classList.add('hidden');
+        return;
+    }
+    
+    const registros = getRegistrosByMunicipio(selectedMunicipio);
+    
+    detailsDiv.innerHTML = `
+        <h4 class="font-bold text-lg text-purple-800 mb-4">Inscriptos en ${selectedMunicipio}</h4>
+        ${registros.length === 0 ? 
+            '<p class="text-gray-500 text-center py-4">No hay inscriptos en este municipio aún</p>' :
+            registros.map(registro => `
+                <div class="bg-white p-4 rounded-lg border border-purple-100 mb-4">
+                    <div class="flex items-center space-x-3">
+                        ${registro.fotoUrl ? 
+                            `<img src="${registro.fotoUrl}" alt="${registro.nombre}" class="h-12 w-12 rounded-full object-cover">` :
+                            `<div class="h-12 w-12 rounded-full bg-purple-100 flex items-center justify-center">
+                                <span class="text-purple-600 font-semibold text-lg">${registro.nombre.charAt(0)}${registro.apellido.charAt(0)}</span>
+                            </div>`
+                        }
+                        <div class="flex-1">
+                            <h5 class="font-semibold text-gray-900">${registro.nombre} ${registro.apellido}</h5>
+                            <p class="text-sm text-gray-600">Escuela: ${registro.escuela}</p>
+                            <p class="text-xs text-gray-500">Registrado: ${new Date(registro.fechaRegistro).toLocaleDateString()}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('')
+        }
+    `;
+    
+    detailsDiv.classList.remove('hidden');
+}
+
+function getRegistrosByMunicipio(municipio) {
+    const registros = JSON.parse(localStorage.getItem('registros') || '[]');
+    return registros.filter(r => r.municipio === municipio);
+}
+
+// ================================
+// MODALES
+// ================================
+
+function showRegistro() {
+    document.getElementById('registro-modal').classList.add('active');
+}
+
+function showAdmin() {
+    document.getElementById('admin-modal').classList.add('active');
+    cargarEstadisticas();
+}
+
+function showEmergencyModal() {
+    document.getElementById('emergency-modal').classList.add('active');
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).classList.remove('active');
+}
+
+// ================================
+// REGISTRO DE USUARIOS
+// ================================
+
+function cargarMunicipios() {
+    const select = document.getElementById('municipio-select');
+    const allMunicipalities = Object.values(SECCIONES_ELECTORALES)
+        .flatMap(section => section.municipalities)
+        .sort();
+    
+    select.innerHTML = '<option value="">Selecciona municipio</option>';
+    allMunicipalities.forEach(municipality => {
+        const option = document.createElement('option');
+        option.value = municipality;
+        option.textContent = municipality;
+        select.appendChild(option);
+    });
+}
+
+document.getElementById('registro-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(e.target);
+    const registro = {
+        id: Date.now(),
+        nombre: formData.get('nombre'),
+        apellido: formData.get('apellido'),
+        dni: formData.get('dni'),
+        email: formData.get('email'),
+        celular: formData.get('celular'),
+        municipio: formData.get('municipio'),
+        seccionElectoral: formData.get('seccionElectoral'),
+        escuela: formData.get('escuela'),
+        direccion: formData.get('direccion'),
+        fechaRegistro: new Date().toISOString(),
+        fotoUrl: null
+    };
+    
+    // Manejar foto
+    const fotoFile = formData.get('foto');
+    if (fotoFile && fotoFile.size > 0) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            registro.fotoUrl = e.target.result;
+            guardarRegistro(registro);
+        };
+        reader.readAsDataURL(fotoFile);
+    } else {
+        guardarRegistro(registro);
+    }
+});
+
+function guardarRegistro(registro) {
+    const registros = JSON.parse(localStorage.getItem('registros') || '[]');
+    registros.push(registro);
+    localStorage.setItem('registros', JSON.stringify(registros));
+    
+    usuarioActual = registro.id;
+    localStorage.setItem('usuarioActual', usuarioActual);
+    
+    mostrarNotificacion('¡Registro exitoso! Bienvenido a La Libertad Avanza.', 'success');
+    closeModal('registro-modal');
+    document.getElementById('registro-form').reset();
+    
+    // Actualizar vista si estamos en la sección correspondiente
+    if (selectedSection && selectedMunicipio === registro.municipio) {
+        showMunicipioDetails();
+    }
+}
+
+// ================================
+// GEOLOCALIZACIÓN Y ESCUELAS
+// ================================
+
+function solicitarUbicacion() {
+    if (!navigator.geolocation) {
+        mostrarNotificacion('Geolocalización no disponible en este navegador', 'error');
+        return;
+    }
+    
+    mostrarNotificacion('Obteniendo ubicación...', 'info');
+    
+    navigator.geolocation.getCurrentPosition(
+        position => {
+            ubicacionActual = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+            mostrarNotificacion('✅ Ubicación obtenida. Sugerencias disponibles.', 'success');
+        },
+        error => {
+            mostrarNotificacion('Error obteniendo ubicación: ' + error.message, 'error');
+        },
+        { enableHighAccuracy: true, timeout: 10000 }
+    );
+}
+
+function showEscuelasSugeridas() {
+    const municipioSeleccionado = document.querySelector('[name="municipio"]').value;
+    if (!municipioSeleccionado) {
+        mostrarNotificacion('Primero selecciona un municipio', 'warning');
+        return;
+    }
+    
+    const escuelas = ESCUELAS_BD.filter(e => e.municipio === municipioSeleccionado);
+    const container = document.getElementById('escuelas-sugeridas');
+    
+    if (escuelas.length === 0) {
+        container.innerHTML = '<p class="p-4 text-gray-500 text-center">No hay escuelas registradas para este municipio</p>';
+    } else {
+        container.innerHTML = `
+            <div class="p-2 bg-purple-50 border-b border-purple-200">
+                <p class="text-xs text-purple-700 font-semibold">🏫 Escuelas disponibles:</p>
+            </div>
+            ${escuelas.map(escuela => `
+                <button type="button" onclick="seleccionarEscuela('${escuela.nombre}', '${escuela.direccion}')"
+                        class="w-full text-left p-3 hover:bg-purple-50 border-b border-gray-100 transition-all">
+                    <div class="font-medium text-sm text-gray-900">${escuela.nombre}</div>
+                    <div class="text-xs text-gray-600">${escuela.direccion}</div>
+                </button>
+            `).join('')}
+        `;
+    }
+    
+    container.classList.toggle('hidden');
+}
+
+function seleccionarEscuela(nombre, direccion) {
+    document.querySelector('[name="escuela"]').value = nombre;
+    document.querySelector('[name="direccion"]').value = direccion;
+    document.getElementById('escuelas-sugeridas').classList.add('hidden');
+}
+
+function tomarFoto() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        mostrarNotificacion('Cámara no disponible en este navegador', 'error');
+        return;
+    }
+    
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+            // Crear modal para mostrar la cámara
+            const modal = document.createElement('div');
+            modal.className = 'modal active items-center justify-center';
+            modal.innerHTML = `
+                <div class="bg-white p-6 rounded-lg max-w-md w-full">
+                    <h3 class="text-lg font-bold mb-4 text-center">📸 Tomar Foto</h3>
+                    <video id="camera-video" autoplay class="w-full mb-4 rounded"></video>
+                    <div class="flex space-x-4">
+                        <button onclick="capturarFoto()" class="flex-1 bg-purple-600 text-white py-2 px-4 rounded">Capturar</button>
+                        <button onclick="cerrarCamara()" class="flex-1 bg-gray-500 text-white py-2 px-4 rounded">Cancelar</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            
+            const video = document.getElementById('camera-video');
+            video.srcObject = stream;
+            
+            window.streamActual = stream;
+            window.modalCamara = modal;
+        })
+        .catch(err => {
+            mostrarNotificacion('Error accediendo a la cámara: ' + err.message, 'error');
+        });
+}
+
+function capturarFoto() {
+    const video = document.getElementById('camera-video');
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    ctx.drawImage(video, 0, 0);
+    
+    // Convertir a blob y asignar al input file
+    canvas.toBlob(blob => {
+        const file = new File([blob], 'foto.jpg', { type: 'image/jpeg' });
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+        document.querySelector('[name="foto"]').files = dataTransfer.files;
+        
+        mostrarNotificacion('📸 Foto capturada exitosamente', 'success');
+    });
+    
+    cerrarCamara();
+}
+
+function cerrarCamara() {
+    if (window.streamActual) {
+        window.streamActual.getTracks().forEach(track => track.stop());
+    }
+    if (window.modalCamara) {
+        document.body.removeChild(window.modalCamara);
+    }
+}
+
+// ================================
+// PANEL DE ADMINISTRADOR  
+// ================================
+
+function loginAdmin() {
+    const password = document.getElementById('admin-password').value;
+    if (password === 'David2025') {
+        isAdmin = true;
+        document.getElementById('admin-login').classList.add('hidden');
+        document.getElementById('admin-panel').classList.remove('hidden');
+        cargarPanelAdmin();
+        mostrarNotificacion('Acceso administrativo concedido', 'success');
+    } else {
+        mostrarNotificacion('Contraseña incorrecta', 'error');
+        document.getElementById('admin-password').classList.add('shake');
+        setTimeout(() => {
+            document.getElementById('admin-password').classList.remove('shake');
+        }, 500);
+    }
+}
+
+function cargarPanelAdmin() {
+    cargarEstadisticas();
+    cargarMunicipiosAdmin();
+    cargarRegistros();
+    cargarEmergencias();
+}
+
+function cargarEstadisticas() {
+    const registros = JSON.parse(localStorage.getItem('registros') || '[]');
+    const emergencias = JSON.parse(localStorage.getItem('emergencias') || '[]');
+    const hoy = new Date().toDateString();
+    
+    document.getElementById('total-registros').textContent = registros.length;
+    document.getElementById('con-foto').textContent = registros.filter(r => r.fotoUrl).length;
+    document.getElementById('registros-hoy').textContent = registros.filter(r => 
+        new Date(r.fechaRegistro).toDateString() === hoy
+    ).length;
+    document.getElementById('emergencias-count').textContent = emergencias.filter(e => !e.leido).length;
+}
+
+function cargarMunicipiosAdmin() {
+    const registros = JSON.parse(localStorage.getItem('registros') || '[]');
+    const municipios = [...new Set(registros.map(r => r.municipio))].sort();
+    const select = document.getElementById('search-municipio');
+    
+    select.innerHTML = '<option value="">Todos los municipios</option>';
+    municipios.forEach(municipio => {
+        const option = document.createElement('option');
+        option.value = municipio;
+        option.textContent = municipio;
+        select.appendChild(option);
+    });
+}
+
+function buscarRegistros() {
+    const searchGeneral = document.getElementById('search-general').value.toLowerCase();
+    const searchMunicipio = document.getElementById('search-municipio').value;
+    const searchSeccion = document.getElementById('search-seccion').value;
+    
+    const registros = JSON.parse(localStorage.getItem('registros') || '[]');
+    const filtrados = registros.filter(registro => {
+        const matchGeneral = !searchGeneral || 
+            registro.nombre.toLowerCase().includes(searchGeneral) ||
+            registro.apellido.toLowerCase().includes(searchGeneral) ||
+            registro.dni.includes(searchGeneral) ||
+            registro.email.toLowerCase().includes(searchGeneral);
+        
+        const matchMunicipio = !searchMunicipio || registro.municipio === searchMunicipio;
+        const matchSeccion = !searchSeccion || registro.seccionElectoral === searchSeccion;
+        
+        return matchGeneral && matchMunicipio && matchSeccion;
+    });
+    
+    mostrarRegistros(filtrados);
+}
+
+function cargarRegistros() {
+    const registros = JSON.parse(localStorage.getItem('registros') || '[]');
+    mostrarRegistros(registros);
+}
+
+function mostrarRegistros(registros) {
+    const container = document.getElementById('registros-list');
+    
+    if (registros.length === 0) {
+        container.innerHTML = '<p class="text-center text-gray-500 py-8">No se encontraron registros</p>';
+        return;
+    }
+    
+    container.innerHTML = `
+        <div class="space-y-4">
+            ${registros.map(registro => `
+                <div class="border border-purple-100 rounded-lg p-4 hover:bg-purple-50 transition-all">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            ${registro.fotoUrl ? 
+                                `<img src="${registro.fotoUrl}" alt="${registro.nombre}" class="h-12 w-12 rounded-full object-cover border-2 border-purple-200">` :
+                                `<div class="h-12 w-12 rounded-full bg-purple-100 flex items-center justify-center border-2 border-purple-200">
+                                    <span class="text-purple-600 font-semibold">${registro.nombre.charAt(0)}${registro.apellido.charAt(0)}</span>
+                                </div>`
+                            }
+                            <div>
+                                <h4 class="font-semibold text-gray-900">${registro.nombre} ${registro.apellido}</h4>
+                                <p class="text-sm text-purple-600">DNI: ${registro.dni}</p>
+                                <p class="text-sm text-gray-600">${registro.email} | ${registro.celular}</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm text-gray-900">${registro.municipio}</p>
+                            <p class="text-sm text-purple-600">${registro.seccionElectoral}ª Sección</p>
+                            <p class="text-xs text-gray-500">${new Date(registro.fechaRegistro).toLocaleDateString()}</p>
+                        </div>
+                    </div>
+                    <div class="mt-3 text-sm text-gray-600">
+                        <p><strong>Escuela:</strong> ${registro.escuela}</p>
+                        <p><strong>Dirección:</strong> ${registro.direccion}</p>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+function exportarCSV() {
+    const registros = JSON.parse(localStorage.getItem('registros') || '[]');
+    const headers = ['ID', 'Nombre', 'Apellido', 'DNI', 'Email', 'Celular', 'Municipio', 'Sección', 'Escuela', 'Dirección', 'Fecha'];
+    
+    const csvContent = [
+        headers.join(','),
+        ...registros.map(r => [
+            r.id,
+            r.nombre,
+            r.apellido,
+            r.dni,
+            r.email,
+            r.celular,
+            r.municipio,
+            `${r.seccionElectoral}ª Sección`,
+            r.escuela,
+            r.direccion,
+            new Date(r.fechaRegistro).toLocaleDateString()
+        ].map(field => `"${field}"`).join(','))
+    ].join('\n');
+    
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'registros_lla_' + new Date().toISOString().split('T')[0] + '.csv';
+    a.click();
+    
+    mostrarNotificacion('📊 Archivo CSV descargado exitosamente', 'success');
+}
+
+// ================================
+// EMERGENCIAS
+// ================================
+
+function enviarEmergencia() {
+    const mensaje = document.getElementById('emergency-message').value.trim();
+    if (!mensaje) {
+        mostrarNotificacion('Por favor escribe un mensaje', 'warning');
+        return;
+    }
+    
+    const emergencia = {
+        id: Date.now(),
+        mensaje: mensaje,
+        usuario: usuarioActual || 'Usuario anónimo',
+        fecha: new Date().toISOString(),
+        leido: false
+    };
+    
+    const emergencias = JSON.parse(localStorage.getItem('emergencias') || '[]');
+    emergencias.push(emergencia);
+    localStorage.setItem('emergencias', JSON.stringify(emergencias));
+    
+    // Enviar notificación
+    enviarNotificacionPush('🚨 EMERGENCIA', mensaje);
+    
+    mostrarNotificacion('🚨 Mensaje de emergencia enviado. El administrador será notificado.', 'success');
+    closeModal('emergency-modal');
+    document.getElementById('emergency-message').value = '';
+}
+
+function cargarEmergencias() {
+    const emergencias = JSON.parse(localStorage.getItem('emergencias') || '[]');
+    const container = document.getElementById('emergencias-list');
+    
+    if (emergencias.length === 0) {
+        container.innerHTML = '<p class="text-gray-500 text-center py-4">No hay mensajes de emergencia</p>';
+        return;
+    }
+    
+    container.innerHTML = emergencias.map(emergencia => `
+        <div class="p-4 rounded-lg border mb-4 ${emergencia.leido ? 'bg-gray-50 border-gray-200' : 'bg-red-50 border-red-300'}">
+            <div class="flex justify-between items-start">
+                <div class="flex-1">
+                    <h4 class="font-semibold text-gray-900">Usuario: ${emergencia.usuario}</h4>
+                    <p class="mt-2 text-gray-800">${emergencia.mensaje}</p>
+                    <p class="text-xs text-gray-500 mt-2">${new Date(emergencia.fecha).toLocaleString()}</p>
+                </div>
+                ${!emergencia.leido ? `
+                    <button onclick="marcarEmergenciaLeida(${emergencia.id})" 
+                            class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm">
+                        Marcar leído
+                    </button>
+                ` : ''}
+            </div>
+        </div>
+    `).join('');
+}
+
+function marcarEmergenciaLeida(id) {
+    const emergencias = JSON.parse(localStorage.getItem('emergencias') || '[]');
+    const actualizadas = emergencias.map(e => e.id === id ? {...e, leido: true} : e);
+    localStorage.setItem('emergencias', JSON.stringify(actualizadas));
+    cargarEmergencias();
+    cargarEstadisticas();
+}
+
+// ================================
+// CHAT EN TIEMPO REAL
+// ================================
+
+function inicializarChat() {
+    actualizarChat();
+}
+
+function toggleChat() {
+    const chatWindow = document.getElementById('chat-window');
+    chatWindow.classList.toggle('hidden');
+    
+    if (!chatWindow.classList.contains('hidden')) {
+        actualizarChat();
+        marcarMensajesLeidos();
+    }
+}
+
+function enviarMensajeChat() {
+    const input = document.getElementById('chat-input');
+    const mensaje = input.value.trim();
+    
+    if (!mensaje) return;
+    
+    const nuevoMensaje = {
+        id: Date.now(),
+        usuario: usuarioActual || 'Usuario',
+        mensaje: mensaje,
+        fecha: new Date().toISOString(),
+        esAdmin: isAdmin,
+        leido: false
+    };
+    
+    const mensajes = JSON.parse(localStorage.getItem('chatMensajes') || '[]');
+    mensajes.push(nuevoMensaje);
+    localStorage.setItem('chatMensajes', JSON.stringify(mensajes));
+    
+    input.value = '';
+    actualizarChat();
+    
+    // Notificar al otro tipo de usuario
+    if (isAdmin) {
+        mostrarNotificacion('Mensaje enviado al usuario', 'success');
+    } else {
+        mostrarNotificacion('Mensaje enviado al administrador', 'success');
+    }
+}
+
+function actualizarChat() {
+    const mensajes = JSON.parse(localStorage.getItem('chatMensajes') || '[]');
+    const container = document.getElementById('chat-messages');
+    const badge = document.getElementById('chat-badge');
+    
+    // Filtrar mensajes relevantes
+    let mensajesFiltrados = mensajes;
+    if (!isAdmin) {
+        mensajesFiltrados = mensajes.filter(m => m.usuario === usuarioActual || m.esAdmin);
+    }
+    
+    if (mensajesFiltrados.length === 0) {
+        container.innerHTML = '<div class="text-center text-gray-500 text-sm"><p>👋 ¡Hola! ¿En qué podemos ayudarte?</p></div>';
+    } else {
+        container.innerHTML = mensajesFiltrados.map(mensaje => `
+            <div class="flex ${mensaje.usuario === usuarioActual || mensaje.esAdmin === isAdmin ? 'justify-end' : 'justify-start'}">
+                <div class="max-w-xs px-3 py-2 rounded-lg text-sm ${
+                    mensaje.usuario === usuarioActual || mensaje.esAdmin === isAdmin
+                        ? 'bg-purple-600 text-white'
+                        : 'bg-gray-100 text-gray-800'
+                } ${!mensaje.leido && mensaje.usuario !== usuarioActual && mensaje.esAdmin !== isAdmin ? 'ring-2 ring-purple-300' : ''}">
+                    <div class="font-medium text-xs opacity-75 mb-1">
+                        ${mensaje.esAdmin ? 'Administrador' : 'Usuario'}
+                    </div>
+                    <div>${mensaje.mensaje}</div>
+                    <div class="text-xs opacity-50 mt-1">
+                        ${new Date(mensaje.fecha).toLocaleTimeString()}
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    // Actualizar badge de mensajes no leídos
+    const noLeidos = mensajesFiltrados.filter(m => !m.leido && m.usuario !== usuarioActual && m.esAdmin !== isAdmin).length;
+    if (noLeidos > 0) {
+        badge.textContent = noLeidos > 9 ? '9+' : noLeidos;
+        badge.classList.remove('hidden');
+    } else {
+        badge.classList.add('hidden');
+    }
+    
+    // Scroll al final
+    container.scrollTop = container.scrollHeight;
+}
+
+function marcarMensajesLeidos() {
+    const mensajes = JSON.parse(localStorage.getItem('chatMensajes') || '[]');
+    const actualizados = mensajes.map(m => {
+        if (!m.leido && m.usuario !== usuarioActual && m.esAdmin !== isAdmin) {
+            return {...m, leido: true};
+        }
+        return m;
+    });
+    localStorage.setItem('chatMensajes', JSON.stringify(actualizados));
+}
+
+// ================================
+// NOTIFICACIONES
+// ================================
+
+function enviarNotificacionPush(titulo, mensaje) {
+    if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification(titulo, {
+            body: mensaje,
+            icon: 'https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/La_Libertad_Avanza_full_logo.svg/800px-La_Libertad_Avanza_full_logo.svg.png',
+            tag: 'lla-notification'
+        });
+    }
+}
+
+function mostrarNotificacion(mensaje, tipo = 'info') {
+    const colors = {
+        success: 'bg-green-500',
+        error: 'bg-red-500', 
+        warning: 'bg-yellow-500',
+        info: 'bg-blue-500'
+    };
+    
+    const notification = document.createElement('div');
+    notification.className = `fixed top-4 right-4 ${colors[tipo]} text-white px-6 py-3 rounded-lg shadow-lg z-50 transform transition-all duration-300 translate-x-full`;
+    notification.textContent = mensaje;
+    
+    document.body.appendChild(notification);
+    
+    // Animar entrada
+    setTimeout(() => {
+        notification.classList.remove('translate-x-full');
+    }, 100);
+    
+    // Remover después de 3 segundos
+    setTimeout(() => {
+        notification.classList.add('translate-x-full');
+        setTimeout(() => {
+            if (notification.parentNode) {
+                document.body.removeChild(notification);
+            }
+        }, 300);
+    }, 3000);
+}
+
+// ================================
+// FUNCIONES DE UTILIDAD
+// ================================
+
+function quickLogin() {
+    mostrarNotificacion('Funcionalidad de inicio de sesión rápido en desarrollo', 'info');
+}
+
+function actualizarEstadisticas() {
+    if (isAdmin && !document.getElementById('admin-panel').classList.contains('hidden')) {
+        cargarEstadisticas();
+    }
+}
+
+// Event listeners para el teclado
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        // Cerrar modales con Escape
+        document.querySelectorAll('.modal.active').forEach(modal => {
+            modal.classList.remove('active');
+        });
+    }
+    
+    if (e.key === 'Enter' && e.target.id === 'chat-input' && !e.shiftKey) {
+        e.preventDefault();
+        enviarMensajeChat();
+    }
+    
+    if (e.key === 'Enter' && e.target.id === 'admin-password') {
+        e.preventDefault();
+        loginAdmin();
+    }
+});
+
+// Cerrar escuelas sugeridas al hacer click fuera
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('#escuelas-sugeridas') && !e.target.closest('button[onclick="showEscuelasSugeridas()"]')) {
+        document.getElementById('escuelas-sugeridas').classList.add('hidden');
+    }
+});
+
+console.log('🎉 Sistema Electoral La Libertad Avanza cargado exitosamente!');
+console.log('🔐 Contraseña admin: David2025');
+console.log('💜 Tema morado activo');
+console.log('📱 Chat en tiempo real funcionando');
+console.log('📍 Geolocalización disponible');
+console.log('🚨 Sistema de emergencias activo');
+
+</script>
+
+</body>
+</html>
